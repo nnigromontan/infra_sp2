@@ -1,3 +1,5 @@
+"""Представления приложения api."""
+
 from django.core.mail import send_mail
 from django.db.models import Avg
 from django.shortcuts import get_object_or_404
@@ -26,7 +28,9 @@ from users.models import User
 
 
 class CreateUser(APIView):
+    """Представление для создания пользователя."""
     def post(self, request):
+        """Метод, создающий пользователя с помощью сериализатора."""
         serializer = CreateUserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
@@ -41,7 +45,9 @@ class CreateUser(APIView):
 
 
 class ConfirmUser(APIView):
+    """Представление для авторизации пользователя."""
     def post(self, request):
+        """Метод, авторизирующий пользователя с помощью сериализатора."""
         serializer = ConfirmUserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         confirmation_code = serializer.validated_data.get('confirmation_code')
@@ -77,6 +83,7 @@ class ConfirmUser(APIView):
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    """Представление для обработки объектов User."""
     queryset = User.objects.all().order_by('id')
     serializer_class = UserSerializer
     permission_classes = (IsAuthenticated, AdminOnly)
@@ -89,6 +96,7 @@ class UserViewSet(viewsets.ModelViewSet):
             permission_classes=(IsAuthenticated, IsAdminOrIsSelf),
             url_path='me', url_name='me')
     def me_detail_patch(self, request):
+        """Метод, обрабатывающий уровни доступа."""
         if request.method == 'GET':
             serializer = UserSerializer(request.user)
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -102,6 +110,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class TitleViewSet(viewsets.ModelViewSet):
+    """Представление для обработки объектов Title."""
     queryset = Title.objects.annotate(
         rating=(Avg('reviews__score')),
     ).order_by('name')
@@ -111,12 +120,14 @@ class TitleViewSet(viewsets.ModelViewSet):
     filterset_class = TitleFilter
 
     def get_serializer_class(self):
+        """Метод, обрабатывающий объекты Title."""
         if self.action in ('list', 'retrieve',):
             return TitleGetSerializer
         return TitlePostSerializer
 
 
 class GenreViewSet(CreateListDestroyMixinViewset):
+    """Представление для обработки объектов Genre."""
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
     permission_classes = (IsAdminOrReadOnly, )
@@ -127,6 +138,7 @@ class GenreViewSet(CreateListDestroyMixinViewset):
 
 
 class CategoryViewSet(CreateListDestroyMixinViewset):
+    """Представление для обработки объектов Category."""
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = (IsAdminOrReadOnly, )
@@ -137,6 +149,7 @@ class CategoryViewSet(CreateListDestroyMixinViewset):
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
+    """Представление для обработки объектов Review."""
     serializer_class = ReviewSerializer
     permission_classes = (
         IsAuthenticatedOrReadOnly,
@@ -146,15 +159,18 @@ class ReviewViewSet(viewsets.ModelViewSet):
     pagination_class = PageNumberPagination
 
     def get_queryset(self):
+        """Метод, получающий объекты Review."""
         title = get_object_or_404(Title, pk=self.kwargs.get('title_id'))
         return title.reviews.all()
 
     def perform_create(self, serializer):
+        """Метод, создающий объекты Review."""
         title = get_object_or_404(Title, pk=self.kwargs.get('title_id'))
         serializer.save(author=self.request.user, title=title)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
+    """Представление для обработки объектов Comment."""
     serializer_class = CommentSerializer
     permission_classes = (
         IsAuthenticatedOrReadOnly,
@@ -164,9 +180,11 @@ class CommentViewSet(viewsets.ModelViewSet):
     pagination_class = PageNumberPagination
 
     def get_queryset(self):
+        """Метод, получающий объекты Comment."""
         review = get_object_or_404(Review, pk=self.kwargs.get('review_id'))
         return review.comments.all()
 
     def perform_create(self, serializer):
+        """Метод, создающий объекты Comment."""
         review = get_object_or_404(Review, pk=self.kwargs.get('review_id'))
         serializer.save(author=self.request.user, review=review)

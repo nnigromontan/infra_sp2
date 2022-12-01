@@ -1,3 +1,4 @@
+"""Настройки проекта api_yamdb"""
 import os
 
 from datetime import timedelta
@@ -69,7 +70,7 @@ DATABASES = {
         'HOST': os.getenv('DB_HOST', 'db'),
         'PORT': os.getenv('DB_PORT', '5432'),
     }
-} 
+}
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -103,7 +104,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'users.User'
 

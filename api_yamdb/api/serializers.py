@@ -1,3 +1,4 @@
+"""Сериализаторы приложения api."""
 from django.utils import timezone
 from rest_framework import serializers
 
@@ -7,10 +8,13 @@ from .utils import check_username_not_me
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """Сериализатор для модели User."""
     def validate_username(self, value):
+        """Валидатор имени User."""
         return check_username_not_me(value)
 
     class Meta:
+        """Класс Meta, хранящий информацию о полях модели User."""
         fields = (
             'username', 'email', 'first_name', 'last_name', 'bio', 'role',
         )
@@ -18,25 +22,31 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
+    """Сериализатор для создания модели User."""
     def validate_username(self, value):
+        """Валидатор имени User."""
         return check_username_not_me(value)
 
     class Meta:
+        """Класс Meta, хранящий информацию полях модели User."""
         fields = ('username', 'email',)
         model = User
 
 
 class ConfirmUserSerializer(serializers.ModelSerializer):
+    """Сериализатор для аутентификации."""
     username = serializers.CharField(max_length=150)
 
     class Meta:
+        """Класс Meta, хранящий информацию полях модели User."""
         fields = ('username', 'confirmation_code',)
         model = User
 
 
 class GenreSerializer(serializers.ModelSerializer):
-
+    """Сериализатор для модели Genre."""
     class Meta:
+        """Класс Meta, хранящий информацию полях модели Genre."""
         model = Genre
         exclude = ('id',)
         lookup_field = 'slug'
@@ -46,8 +56,9 @@ class GenreSerializer(serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
-
+    """Сериализатор для модели Category."""
     class Meta:
+        """Класс Meta, хранящий информацию полях модели Category."""
         model = Category
         exclude = ('id',)
         lookup_field = 'slug'
@@ -57,6 +68,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class TitleGetSerializer(serializers.ModelSerializer):
+    """Сериализатор для получения объекта модели Title."""
     genre = GenreSerializer(
         read_only=True,
         many=True,
@@ -67,12 +79,14 @@ class TitleGetSerializer(serializers.ModelSerializer):
     rating = serializers.IntegerField()
 
     class Meta:
+        """Класс Meta, хранящий информацию полях модели Title."""
         model = Title
         fields = ('id', 'name', 'year', 'rating',
                   'description', 'genre', 'category',)
 
 
 class TitlePostSerializer(serializers.ModelSerializer):
+    """Сериализатор для создания объекта модели Title."""
     genre = serializers.SlugRelatedField(
         queryset=Genre.objects.all(),
         many=True,
@@ -86,24 +100,28 @@ class TitlePostSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
+        """Класс Meta, хранящий информацию полях модели Title."""
         model = Title
         fields = ('id', 'name', 'year',
                   'description', 'genre', 'category',)
         read_only_fields = ('genre', 'category',)
 
     def validate_year(self, year):
+        """Валидатор года."""
         if year > timezone.now().year:
             raise serializers.ValidationError('Этот год еще не настал.')
         return year
 
 
 class ReviewSerializer(serializers.ModelSerializer):
+    """Сериализатор для создания объекта модели Review."""
     author = serializers.SlugRelatedField(
         read_only=True,
         slug_field='username',
     )
 
     class Meta:
+        """Класс Meta, хранящий информацию полях модели Review."""
         model = Review
         fields = ('id', 'text', 'author', 'score', 'pub_date')
 

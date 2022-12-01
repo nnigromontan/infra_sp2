@@ -1,9 +1,11 @@
+"""Настройки админ-панели приложения Reviews."""
 from django.contrib import admin
 
 from .models import Title, Genre, Category
 
 
 class TitleAdmin(admin.ModelAdmin):
+    """Описание для моделей Title."""
     list_display = (
         'pk',
         'name',
@@ -22,6 +24,7 @@ class TitleAdmin(admin.ModelAdmin):
 
 
 class GenreAdmin(admin.ModelAdmin):
+    """Описание для моделей Genre."""
     list_display = (
         'name',
         'slug',
@@ -31,6 +34,7 @@ class GenreAdmin(admin.ModelAdmin):
 
 
 class CategoryAdmin(admin.ModelAdmin):
+    """Описание для моделей Category."""
     list_display = (
         'name',
         'slug'
