@@ -54,8 +54,8 @@ class GenreSerializer(serializers.ModelSerializer):
     """Сериализатор для обработки модели Genre."""
 
     class Meta:
-
         """Класс Meta, хранящий информацию полях модели Genre."""
+
         model = Genre
         exclude = ('id',)
         lookup_field = 'slug'
@@ -160,6 +160,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     """Сериализатор для обработки объекта модели Comment."""
+
     author = serializers.SlugRelatedField(
         read_only=True,
         slug_field='username',

@@ -1,4 +1,4 @@
-"""Автоматизация наполнения БД"""
+"""Автоматизация наполнения БД."""
 
 import json
 from csv import DictReader
@@ -9,12 +9,12 @@ from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-    """Настройки инструмента для создания фикстур"""
+    """Настройки инструмента для создания фикстур."""
 
     help = 'Creates fixtures for applications from csv files with data'
 
     def handle(self, *args, **options):
-        """Создает фикстуры для приложений из csv файла"""
+        """Создает фикстуры для приложений из csv файла."""
         # list contains data_file, application_name, model_name
         file_to_table = [
             ('titles.csv', 'reviews', 'Title'),
