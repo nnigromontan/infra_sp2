@@ -32,6 +32,7 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
     def __str__(self) -> str:
+        """Возвращает имя объекта."""
         return str(self.name)
 
 
@@ -49,6 +50,7 @@ class Genre(models.Model):
         verbose_name_plural = 'Genres'
 
     def __str__(self) -> str:
+        """Возвращает имя объекта."""
         return str(self.name)
 
 
@@ -91,6 +93,7 @@ class Title(models.Model):
         verbose_name_plural = 'Titles'
 
     def __str__(self):
+        """Возвращает имя объекта."""
         return self.name
 
 
