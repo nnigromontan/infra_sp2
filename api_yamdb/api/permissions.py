@@ -6,6 +6,7 @@ from users.models import ADMIN, MODER
 
 class AdminOnly(BasePermission):
     """Класс, описывающий настройки уровня доступа Admin."""
+
     def has_permission(self, request, _):
         """Доступ для чтения"""
         return request.user.role == ADMIN or request.user.is_superuser
@@ -17,6 +18,7 @@ class AdminOnly(BasePermission):
 
 class IsAdminOrIsSelf(BasePermission):
     """Класс, описывающий настройки уровня доступа Admin или автор."""
+
     def has_object_permission(self, request, _, obj):
         """Доступ для записи и удаления"""
         user = obj.objects.get(username=self.request.data['username'])

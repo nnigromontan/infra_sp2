@@ -9,6 +9,7 @@ from .utils import check_username_not_me
 
 class UserSerializer(serializers.ModelSerializer):
     """Сериализатор для модели User."""
+
     def validate_username(self, value):
         """Валидатор имени User."""
         return check_username_not_me(value)
@@ -23,6 +24,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class CreateUserSerializer(serializers.ModelSerializer):
     """Сериализатор для создания модели User."""
+
     def validate_username(self, value):
         """Валидатор имени User."""
         return check_username_not_me(value)

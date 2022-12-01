@@ -29,6 +29,7 @@ from users.models import User
 
 class CreateUser(APIView):
     """Представление для создания пользователя."""
+
     def post(self, request):
         """Метод, создающий пользователя с помощью сериализатора."""
         serializer = CreateUserSerializer(data=request.data)
@@ -46,6 +47,7 @@ class CreateUser(APIView):
 
 class ConfirmUser(APIView):
     """Представление для авторизации пользователя."""
+
     def post(self, request):
         """Метод, авторизирующий пользователя с помощью сериализатора."""
         serializer = ConfirmUserSerializer(data=request.data)
