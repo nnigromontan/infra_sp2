@@ -1,4 +1,5 @@
-"""Настройки доступов приложения api"""
+"""Настройки доступов приложения api.
+"""
 
 from rest_framework.permissions import SAFE_METHODS, BasePermission
 
@@ -6,7 +7,8 @@ from users.models import ADMIN, MODER
 
 
 class AdminOnly(BasePermission):
-    """Класс, описывающий настройки уровня доступа Admin"""
+    """Класс, описывающий настройки уровня доступа Admin.
+    """
 
     def has_permission(self, request, _):
         """Доступ для чтения"""
