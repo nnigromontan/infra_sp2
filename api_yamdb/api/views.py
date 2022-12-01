@@ -86,6 +86,7 @@ class ConfirmUser(APIView):
 
 class UserViewSet(viewsets.ModelViewSet):
     """Представление для обработки объектов User."""
+
     queryset = User.objects.all().order_by('id')
     serializer_class = UserSerializer
     permission_classes = (IsAuthenticated, AdminOnly)
@@ -113,6 +114,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class TitleViewSet(viewsets.ModelViewSet):
     """Представление для обработки объектов Title."""
+
     queryset = Title.objects.annotate(
         rating=(Avg('reviews__score')),
     ).order_by('name')
@@ -130,6 +132,7 @@ class TitleViewSet(viewsets.ModelViewSet):
 
 class GenreViewSet(CreateListDestroyMixinViewset):
     """Представление для обработки объектов Genre."""
+
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
     permission_classes = (IsAdminOrReadOnly, )
@@ -141,6 +144,7 @@ class GenreViewSet(CreateListDestroyMixinViewset):
 
 class CategoryViewSet(CreateListDestroyMixinViewset):
     """Представление для обработки объектов Category."""
+
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = (IsAdminOrReadOnly, )
@@ -152,6 +156,7 @@ class CategoryViewSet(CreateListDestroyMixinViewset):
 
 class ReviewViewSet(viewsets.ModelViewSet):
     """Представление для обработки объектов Review."""
+
     serializer_class = ReviewSerializer
     permission_classes = (
         IsAuthenticatedOrReadOnly,
@@ -173,6 +178,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
 class CommentViewSet(viewsets.ModelViewSet):
     """Представление для обработки объектов Comment."""
+
     serializer_class = CommentSerializer
     permission_classes = (
         IsAuthenticatedOrReadOnly,

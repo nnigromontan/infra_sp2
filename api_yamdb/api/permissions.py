@@ -1,11 +1,12 @@
-"""Настройки доступов приложения api."""
+"""Настройки доступов приложения api"""
+
 from rest_framework.permissions import SAFE_METHODS, BasePermission
 
 from users.models import ADMIN, MODER
 
 
 class AdminOnly(BasePermission):
-    """Класс, описывающий настройки уровня доступа Admin."""
+    """Класс, описывающий настройки уровня доступа Admin"""
 
     def has_permission(self, request, _):
         """Доступ для чтения"""
@@ -17,7 +18,7 @@ class AdminOnly(BasePermission):
 
 
 class IsAdminOrIsSelf(BasePermission):
-    """Класс, описывающий настройки уровня доступа Admin или автор."""
+    """Класс, описывающий настройки уровня доступа Admin или автор"""
 
     def has_object_permission(self, request, _, obj):
         """Доступ для записи и удаления"""
@@ -26,7 +27,7 @@ class IsAdminOrIsSelf(BasePermission):
 
 
 class IsAdminOrReadOnly(BasePermission):
-    """Класс, описывающий настройки уровня доступа Admin или read only."""
+    """Класс, описывающий настройки уровня доступа Admin или read only"""
 
     def has_permission(self, request, _):
         """Доступ для чтения"""
@@ -47,7 +48,7 @@ class IsAuthorPatch(BasePermission):
 
 
 class IsModeratorAuthorDelete(BasePermission):
-    """Класс, описывающий настройки уровня доступа Админ или Автор."""
+    """Класс, описывающий настройки уровня доступа Админ или Автор"""
 
     def has_permission(self, request, _):
         """Доступ для удаления"""

@@ -1,4 +1,5 @@
-"""Настройки моделей приложения Users."""
+"""Настройки моделей приложения Users"""
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.crypto import get_random_string
@@ -6,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 def get_random():
-    """Метод для получения рандомной строки."""
+    """Метод для получения рандомной строки"""
     return get_random_string(length=32)
 
 
@@ -22,7 +23,8 @@ ROLES = (
 
 
 class User(AbstractUser):
-    """Описание модели пользователя."""
+    """Описание модели пользователя"""
+
     role = models.CharField(
         max_length=9,
         choices=ROLES,

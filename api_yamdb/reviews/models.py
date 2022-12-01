@@ -1,4 +1,5 @@
-"""Модели приложения reviews."""
+"""Модели приложения reviews"""
+
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
@@ -18,12 +19,14 @@ CHOICES = ((10, 'Best'),
 
 
 class Category(models.Model):
-    """Описание модели Category."""
+    """Описание модели Category"""
+
     name = models.CharField(max_length=256)
     slug = models.SlugField(max_length=50, unique=True)
 
     class Meta:
-        """Класс Meta, хранящий дополнительную информацию о модели Category."""
+        """Класс Meta, хранящий дополнительную информацию о модели Category"""
+
         ordering = ['name']
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
@@ -33,12 +36,14 @@ class Category(models.Model):
 
 
 class Genre(models.Model):
-    """Описание модели Genre."""
+    """Описание модели Genre"""
+
     name = models.CharField(max_length=256)
     slug = models.SlugField(max_length=50, unique=True)
 
     class Meta:
-        """Класс Meta, хранящий дополнительную информацию о модели Genre."""
+        """Класс Meta, хранящий дополнительную информацию о модели Genre"""
+
         ordering = ['name']
         verbose_name = 'Genre'
         verbose_name_plural = 'Genres'
@@ -48,7 +53,8 @@ class Genre(models.Model):
 
 
 class Title(models.Model):
-    """Описание модели Title."""
+    """Описание модели Title"""
+
     name = models.CharField(max_length=200, db_index=True)
     year = models.IntegerField(
         verbose_name='Year',
@@ -78,7 +84,8 @@ class Title(models.Model):
     )
 
     class Meta:
-        """Класс Meta, хранящий дополнительную информацию о модели Title."""
+        """Класс Meta, хранящий дополнительную информацию о модели Title"""
+
         ordering = ['name']
         verbose_name = 'Title'
         verbose_name_plural = 'Titles'
@@ -88,7 +95,8 @@ class Title(models.Model):
 
 
 class Review(models.Model):
-    """Описание модели Review."""
+    """Описание модели Review"""
+
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -115,7 +123,8 @@ class Review(models.Model):
     )
 
     class Meta:
-        """Класс Meta, хранящий дополнительную информацию о модели Review."""
+        """Класс Meta, хранящий дополнительную информацию о модели Review"""
+
         ordering = ['-pub_date']
         constraints = [
             models.UniqueConstraint(
@@ -128,7 +137,8 @@ class Review(models.Model):
 
 
 class Comment(models.Model):
-    """Описание модели Comment."""
+    """Описание модели Comment"""
+
     review = models.ForeignKey(
         Review,
         on_delete=models.CASCADE,
@@ -151,7 +161,8 @@ class Comment(models.Model):
     )
 
     class Meta:
-        """Класс Meta, хранящий дополнительную информацию о модели Comment."""
+        """Класс Meta, хранящий дополнительную информацию о модели Comment"""
+
         ordering = ['-pub_date']
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'

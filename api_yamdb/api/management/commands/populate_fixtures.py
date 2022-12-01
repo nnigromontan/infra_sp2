@@ -1,4 +1,5 @@
 """Автоматизация наполнения БД"""
+
 from pathlib import Path
 
 from django.conf import settings
@@ -8,10 +9,11 @@ from django.core.management.base import BaseCommand
 
 class Command(BaseCommand):
     """Настройки инструмента для наполнения БД"""
+
     help = 'Populate database with data from fixtures'
 
     def handle(self, *args, **options):
-        """Наполняет БД фикстурами."""
+        """Наполняет БД фикстурами"""
         # list contains application_name, file_name of fixtures
         fixtures_to_db = [
             ('users', 'User.json'),

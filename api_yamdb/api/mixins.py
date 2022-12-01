@@ -1,4 +1,5 @@
-"""Миксины приложения api."""
+"""Миксины приложения api"""
+
 from rest_framework import viewsets, mixins
 
 
@@ -7,4 +8,5 @@ class CreateListDestroyMixinViewset(mixins.CreateModelMixin,
                                     mixins.DestroyModelMixin,
                                     viewsets.GenericViewSet):
     """Кастомный миксин для настройки представлений."""
+    
     pass
