@@ -1,4 +1,4 @@
-"""Настройки админ-панели приложения Reviews"""
+"""Настройки админ-панели приложения Reviews."""
 
 from django.contrib import admin
 
@@ -6,7 +6,7 @@ from .models import Title, Genre, Category
 
 
 class TitleAdmin(admin.ModelAdmin):
-    """Описание для моделей Title"""
+    """Описание для моделей Title."""
 
     list_display = (
         'pk',
@@ -22,12 +22,12 @@ class TitleAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
 
     def genres(self, obj):
-        """Отображение жанров"""
+        """Отображение жанров."""
         return ", ".join([x.name for x in obj.genre.all()])
 
 
 class GenreAdmin(admin.ModelAdmin):
-    """Описание для моделей Genre"""
+    """Описание для моделей Genre."""
 
     list_display = (
         'name',
@@ -38,7 +38,7 @@ class GenreAdmin(admin.ModelAdmin):
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    """Описание для моделей Category"""
+    """Описание для моделей Category."""
 
     list_display = (
         'name',

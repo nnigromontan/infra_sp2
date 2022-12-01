@@ -1,4 +1,4 @@
-"""Настройки админ-панели приложения Users"""
+"""Настройки админ-панели приложения Users."""
 
 from django.contrib import admin
 
@@ -6,7 +6,7 @@ from .models import User
 
 
 class UserAdmin(admin.ModelAdmin):
-    """Описание для класса Admin"""
+    """Описание для класса Admin."""
 
     list_display = (
         'username',

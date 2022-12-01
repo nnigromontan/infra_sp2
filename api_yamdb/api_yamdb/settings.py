@@ -1,4 +1,5 @@
-"""Настройки проекта api_yamdb"""
+"""Настройки проекта api_yamdb."""
+
 import os
 
 from datetime import timedelta

@@ -1,4 +1,5 @@
-"""Интеграционный модуль проекта api_yamdb"""
+"""Интеграционный модуль проекта api_yamdb."""
+
 import os
 
 from django.core.wsgi import get_wsgi_application
