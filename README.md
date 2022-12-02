@@ -25,60 +25,51 @@
 - **Django 2.2.16**
 - **Django Rest Framework 3.12.4**
 - **SimpleJWT 4.8.0**
+- **Nginx 1.21.6**
+- **Docker v20.10.21**
+- **Gunicorn 20.0.4**
+- **PostgreSQL Psycopg 2.8.6**
 ### Как запустить проект
 
 Клонировать репозиторий и перейти в него в командной строке:
 
 ```
-git clone https://github.com/KoVal177/api_yamdb/
+git clone git@github.com:nnigromontan/infra_sp2.git
 ```
 
 ```
-cd api_yamdb
+cd infra_sp2/infra/
 ```
 
-Cоздать и активировать виртуальное окружение (команды для Windows):
+Запустить композицию контейнеров Docker:
 
 ```
-python -m venv venv
-```
+docker-compose up -d --build
 
 ```
-source venv/Scripts/activate
-```
 
-Установить зависимости из файла requirements.txt:
+Выполнить миграции и собрать статику:
 
 ```
-python -m pip install --upgrade pip
+docker-compose exec web python manage.py migrate
+
 ```
 
 ```
-pip install -r requirements.txt
-```
+docker-compose exec web python manage.py collectstatic --no-input
 
-Выполнить миграции:
-
-```
-python manage.py migrate
-```
-
-Запустить проект:
-
-```
-python manage.py runserver
 ```
 
 Существует возможность заполнения базы данных тестовыми данными, находящимися в файлах csv в директории `static/data`.
 Создать фикстуры из файлов:
 
 ```
-python manage.py create_fixtures
+docker-compose exec web python manage.py create_fixtures
 ```
 Заполнить базу данных из фикстур:
 
 ```
-python manage.py populate_fixtures
+docker-compose exec web python manage.py populate_fixtures
 ```
 ### Примеры работы с проектом
 **Алгоритм регистрации пользователей**  
@@ -128,6 +119,6 @@ python manage.py populate_fixtures
 *"slug": "string"*  
 *}*  
 Администратор также может удалить жанр, отправив соответствующий запрос на эндпоинт /api/v1/genres/{slug}/  
-**Для более подробного описания запустите сервер и перейдите по ссылке http://127.0.0.1:8000/redoc/**  
+**Для более подробного описания запустите сервер и перейдите по ссылке http://127.0.0.1/redoc/**  
 ### Авторы
 Валентин Корзюк, Александр Богус и Динеев Артур под чутким руководством команды ЯП
